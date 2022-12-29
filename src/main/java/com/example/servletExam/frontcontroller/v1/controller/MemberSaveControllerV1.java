@@ -1,28 +1,21 @@
-package com.example.servletExam.servletMVC;
+package com.example.servletExam.frontcontroller.v1.controller;
 
 import com.example.servletExam.examProject.domain.dto.Member;
 import com.example.servletExam.examProject.domain.repository.MemberRepository;
+import com.example.servletExam.frontcontroller.v1.ControllerV1;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.lang.constant.Constable;
 
-@WebServlet(name = "memberMVCSaveServlet", urlPatterns = "/servlet-mvc/members/save")
-public class MemberMVCSaveServlet extends HttpServlet {
+public class MemberSaveControllerV1 implements ControllerV1 {
 
     private MemberRepository memberRepository = MemberRepository.getInstance();
 
-    /**
-     * 사용자가 /members/new_from 에서 계정 생성 요청을 보내면
-     * 해당 servlet 에서 요청을 받아 계정을 repository 에 저장함
-     * */
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String username = request.getParameter("username");
         int age = Integer.parseInt(request.getParameter("age"));
@@ -36,5 +29,6 @@ public class MemberMVCSaveServlet extends HttpServlet {
         String viewPath = "/WEB-INF/views/save-result.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);
+
     }
 }
